@@ -1,11 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import Image from "../src/static/mainBackgroundCoverImageOvercastWeather.jpg";
-import MyWeatherMainMenu from "./Components/My-Weather-Main-Menu/My-Weather-Main-Menu";
+import Image from "../src/static/cloudyWeather.jpg";
+import WeatherDasboard from "./components/Weather-Dashboard/Weather-Dashboard";
 import "./App.css";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     height: "100vh"
@@ -13,14 +13,12 @@ const useStyles = makeStyles(theme => ({
   paper: {
     width: "100%",
     height: "100%",
-    background: "rgba(0, 0, 0, 0.5)",
-    backgroundBlendMode: "multiply",
     backgroundImage: `url(${Image})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center"
   }
-}));
+});
 
 function App() {
   const classes = useStyles();
@@ -28,8 +26,8 @@ function App() {
   return (
     <div className="App">
       <div className={classes.root}>
-        <Paper className={classes.paper} square="true">
-          <MyWeatherMainMenu />
+        <Paper className={classes.paper} square={true}>
+          <WeatherDasboard />
         </Paper>
       </div>
     </div>

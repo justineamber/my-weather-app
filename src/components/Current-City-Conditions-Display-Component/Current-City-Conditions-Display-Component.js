@@ -1,29 +1,39 @@
 import React from "react";
-import { Box, makeStyles } from "@material-ui/core";
+import { Box, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
-  currentConditionsList: {},
-  tempratureDisplayBox: { marginTop: "50px", marginLeft: "68px" },
+  currentConditionsList: {
+    display: "flex",
+    flexDirection: "column",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    padding: "4rem",
+    position: "relative"
+  },
   weatherDescriptionStyle: {
-    float: "left",
-    clear: "left",
-    fontSize: "1.5rem",
+    color: "#fff",
+    display: "flex",
     fontWeight: 700,
-    letterSpacing: "0.02857em",
-    color: "#fff"
+    fontSize: "1rem",
+    letterSpacing: "0.0625rem",
+    position: "absolute"
   },
   tempratureStyle: {
-    fontSize: "4.25rem",
-    marginLeft: "-6px",
-    marginTop: "4px",
-    float: "left",
-    clear: "left",
+    color: "#fff",
+    display: "flex",
+    fontWeight: 700,
     fontFamily: "Nova Slim",
-    color: "#fff"
+    marginTop: "6rem",
+    position: "absolute"
   },
   degreeStyle: {
-    fontSize: "2.5rem",
-    verticalAlign: "text-top"
+    color: "#fff",
+    display: "flex",
+    fontWeight: 700,
+    fontFamily: "Nova Slim",
+    left: "7.875rem",
+    position: "absolute",
+    top: "4.6875rem"
   }
 }));
 
@@ -33,10 +43,15 @@ function CurrentCityConditionsDisplayComponent(props) {
 
   return (
     <Box className={classes.currentConditionsList}>
-      <div className={classes.tempratureDisplayBox}>
-        <p className={classes.weatherDescriptionStyle}>{weatherDescription}</p>
-        <p className={classes.tempratureStyle}>{Math.round(mainTemp)}°</p>
-      </div>
+      <Typography variant="h5" className={classes.weatherDescriptionStyle}>
+        {weatherDescription}
+      </Typography>
+      <Typography variant="h2" className={classes.tempratureStyle}>
+        {Math.round(mainTemp)}
+      </Typography>
+      <Typography variant="h3" className={classes.degreeStyle}>
+        °
+      </Typography>
     </Box>
   );
 }

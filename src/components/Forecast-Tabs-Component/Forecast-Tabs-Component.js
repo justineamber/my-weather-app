@@ -7,12 +7,16 @@ const useStyles = makeStyles(theme => ({
   flexContainer: {
     justifyContent: "flex-end"
   },
+  indicator: {
+    backgroundColor: "#fff"
+  },
   tab: {
     color: "#eaeaea",
     fontSize: "1rem",
+    fontWeight: 700,
     textTransform: "none",
     minWidth: 62,
-    fontWeight: theme.typography.fontWeightRegular,
+    //fontWeight: theme.typography.fontWeightRegular,
     marginRight: theme.spacing(1)
   }
 }));
@@ -27,7 +31,10 @@ function ForecastTabsComponent(props) {
       value={forecastDuration}
       variant="scrollable"
       scrollButtons="auto"
-      className={classes.flexContainer}
+      classes={{
+        flexContainer: classes.flexContainer,
+        indicator: classes.indicator
+      }}
     >
       <Tab
         className={classes.tab}

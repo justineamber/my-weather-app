@@ -9,7 +9,8 @@ import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   topBar: {
-    // Style the top bar here...
+    display: "flex",
+    position: "relative"
   }
 }));
 
@@ -24,7 +25,7 @@ function WeatherDashboard() {
   return (
     <>
       <Box className={classes.topBar}>
-        <MonthDateBoxComponent day={6} month="sep" />
+        <MonthDateBoxComponent day={21} month="Oct" />
         <SearchComponent searchCity="" />
       </Box>
 

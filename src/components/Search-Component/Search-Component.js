@@ -1,19 +1,26 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import Search from "@material-ui/icons/Search";
-import { Box, makeStyles, InputAdornment, Icon } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import {
+  Box,
+  makeStyles,
+  fade,
+  InputAdornment,
+  IconButton
+} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   search: {
-    position: "relative",
-    backgroundColor: "#fff",
-    marginLeft: 0,
-    width: "100%",
-
-    "&:hover": {
-      backgroundColor: "#fff"
+    "& > *": {
+      margin: theme.spacing(1)
     },
-
+    position: "absolute",
+    left: "5.625rem",
+    bottom: "1rem",
+    backgroundColor: fade(theme.palette.common.white, 0.9),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 1.0)
+    },
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
       width: "auto"
@@ -33,9 +40,9 @@ function SearchComponent(props) {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <Icon>
-                <Search />
-              </Icon>
+              <IconButton type="submit" aria-label="search">
+                <SearchIcon />
+              </IconButton>
             </InputAdornment>
           )
         }}

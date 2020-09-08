@@ -8,18 +8,18 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     height: "80px",
     width: "80px",
-    backgroundColor: "#000"
+    backgroundColor: "#000",
+    flexDirection: "column"
   },
   currentMonth: {
     color: "#fff",
     fontWeight: 700,
-    fontSize: "1.25rem",
     textTransform: "uppercase"
   },
   currentDate: {
     color: "#fff",
-    fontWeight: 700,
-    fontSize: "1.25rem"
+    fontSize: "1.25rem",
+    fontWeight: 700
   }
 }));
 

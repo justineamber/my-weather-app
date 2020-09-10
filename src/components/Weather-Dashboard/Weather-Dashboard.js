@@ -43,9 +43,6 @@ function WeatherDashboard(props) {
       });
   }, []);
 
-  const monthAndDate = new Date("")
-  console.log(monthAndDate.getMonth());
-
   return (
     <>
       <Box className={classes.topBar}>

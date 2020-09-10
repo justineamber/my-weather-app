@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 import WeatherListComponent from "../Weather-List-Component/Weather-List-Component";
 import MonthDateBoxComponent from "../Month-Date-Box-Component/Month-Date-Box-Component";
@@ -7,48 +8,68 @@ import CurrentCityConditionsDisplayComponent from "../Current-City-Conditions-Di
 import ForecastTabsComponent from "../Forecast-Tabs-Component/Forecast-Tabs-Component";
 import { Box } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   topBar: {
     display: "flex",
     position: "relative"
   }
 }));
 
-function WeatherDashboard() {
+function WeatherDashboard(props) {
   const classes = useStyles();
   const [forecastDuration, setForecastDuration] = useState("Today");
+  const [dailyData, setDailyData] = useState([]);
+  const [weeklyData, setWeeklyData] = useState([]);
 
   const handleDurationChange = duration => {
     setForecastDuration(duration);
   };
 
+  useEffect(() => {
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${6453366}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)  
+   .then(response => response.json())
+      .then(response => {
+       
+        const firstFive = response.list.slice(0, 5).map(listItem => {
+          return {
+            title: listItem.dt_txt,
+            iconID: listItem.weather[0].icon,
+            mainTemp: listItem.main.temp,
+            weatherDescription: listItem.weather[0].description
+          };
+        });
+        setDailyData(firstFive);
+        console.log(firstFive)
+      });
+  }, []);
+
+  const monthAndDate = new Date("")
+  console.log(monthAndDate.getMonth());
+
   return (
     <>
       <Box className={classes.topBar}>
-        <MonthDateBoxComponent day={21} month="Oct" />
+     
+        <MonthDateBoxComponent day={21} month={"Oct"} />
+        
         <SearchComponent searchCity="" />
       </Box>
-
+      {dailyData.slice(0,1).map(currentTempAndWeatherDescription => (
       <CurrentCityConditionsDisplayComponent
-        mainTemp={12}
-        weatherDescription="Cloudy"
+       key={currentTempAndWeatherDescription.tempAndWeatherDescription}
+        mainTemp={currentTempAndWeatherDescription.mainTemp}
+        weatherDescription={currentTempAndWeatherDescription.weatherDescription}
       />
-
+       ))}
       <ForecastTabsComponent
         forecastDuration={forecastDuration}
         handleDurationChange={handleDurationChange}
       />
-
       <WeatherListComponent
-        data={[
-          { day: "Monday", iconID: "02d", mainTemp: 1 },
-          { day: "Tuesday", iconID: "02d", mainTemp: 2 },
-          { day: "Wednesday", iconID: "02d", mainTemp: 3 },
-          { day: "Thursday", iconID: "02d", mainTemp: 4 },
-          { day: "Friday", iconID: "02d", mainTemp: 5 }
-        ]}
+        data={forecastDuration === "Today" ? dailyData : weeklyData}
       />
     </>
   );
 }
+
 export default WeatherDashboard;

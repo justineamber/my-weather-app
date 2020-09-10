@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "space-around",
     padding: "1.5rem 0",
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     overflowX: "auto",
     width: "100%"
   }
@@ -22,7 +22,8 @@ function WeatherListComponent(props) {
     <Box className={classes.weatherList}>
       {data.map(forecast => (
         <WeatherSingleComponent
-          day={forecast.day}
+          key={forecast.title}
+          title={forecast.title}
           iconID={forecast.iconID}
           mainTemp={forecast.mainTemp}
         />

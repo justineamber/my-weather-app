@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
     alignContent: "center",
     alignItems: "center"
   },
-  daySingle: {
+  titleSingle: {
     fontSize: "1.25rem",
     fontWeight: 500,
     padding: "1rem"
@@ -30,12 +30,12 @@ const useStyles = makeStyles(() => ({
 
 function WeatherSingleComponent(props) {
   const classes = useStyles();
-  const { day, iconID, mainTemp } = props;
+  const { title, iconID, mainTemp } = props;
 
   return (
     <Box className={classes.weatherSingleContainer}>
-      <Typography variant="h5" className={classes.daySingle}>
-        {day}
+      <Typography variant="h5" className={classes.titleSingle}>
+        {title}
       </Typography>
 
       <img

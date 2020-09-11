@@ -39,21 +39,35 @@ function WeatherDashboard(props) {
           };
         });
         setDailyData(firstFive);
-        console.log(firstFive)
+
+        const firstFiveDays = response.list.filter(listItem => listItem.dt_txt.includes("18:00:00")).map(listItem => {
+          return {
+            title: listItem.dt_txt,
+            iconID: listItem.weather[0].icon,
+            mainTemp: listItem.main.temp,
+            weatherDescription: listItem.weather[0].description
+          };
+        });
+        setWeeklyData(firstFiveDays);
+        console.log(firstFiveDays);
       });
   }, []);
+
+  const day = new Date();
+  const dayOptions = {day: "numeric" }
+
+  const month = new Date();
+  const monthOptions = {month: "short"}
 
   return (
     <>
       <Box className={classes.topBar}>
-     
-        <MonthDateBoxComponent day={21} month={"Oct"} />
-        
+        <MonthDateBoxComponent day={day.toLocaleDateString(undefined,dayOptions)} month={month.toLocaleDateString(undefined,monthOptions)} />
         <SearchComponent searchCity="" />
       </Box>
       {dailyData.slice(0,1).map(currentTempAndWeatherDescription => (
       <CurrentCityConditionsDisplayComponent
-       key={currentTempAndWeatherDescription.tempAndWeatherDescription}
+       key={currentTempAndWeatherDescription.mainTemp}
         mainTemp={currentTempAndWeatherDescription.mainTemp}
         weatherDescription={currentTempAndWeatherDescription.weatherDescription}
       />
@@ -64,6 +78,7 @@ function WeatherDashboard(props) {
       />
       <WeatherListComponent
         data={forecastDuration === "Today" ? dailyData : weeklyData}
+      
       />
     </>
   );

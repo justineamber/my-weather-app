@@ -29,7 +29,7 @@ function WeatherDashboard(props) {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${6453366}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)  
    .then(response => response.json())
       .then(response => {
-       
+      
         const firstFive = response.list.slice(0, 5).map(listItem => {
           return {
             title: listItem.dt_txt,
@@ -63,8 +63,9 @@ function WeatherDashboard(props) {
     <>
       <Box className={classes.topBar}>
         <MonthDateBoxComponent day={day.toLocaleDateString(undefined,dayOptions)} month={month.toLocaleDateString(undefined,monthOptions)} />
-        <SearchComponent searchCity="" />
+        <SearchComponent searchCity={""} />
       </Box>
+
       {dailyData.slice(0,1).map(currentTempAndWeatherDescription => (
       <CurrentCityConditionsDisplayComponent
        key={currentTempAndWeatherDescription.mainTemp}
@@ -72,13 +73,13 @@ function WeatherDashboard(props) {
         weatherDescription={currentTempAndWeatherDescription.weatherDescription}
       />
        ))}
+
       <ForecastTabsComponent
         forecastDuration={forecastDuration}
         handleDurationChange={handleDurationChange}
       />
       <WeatherListComponent
         data={forecastDuration === "Today" ? dailyData : weeklyData}
-      
       />
     </>
   );

@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     fontWeight: 700,
     fontFamily: "Nova Slim",
-    left: "7.875rem",
+    left: "8.75rem",
     position: "absolute",
     top: "4.6875rem"
   }

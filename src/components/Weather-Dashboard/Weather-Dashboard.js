@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import WeatherListComponent from "../Weather-List-Component/Weather-List-Component";
 import MonthDateBoxComponent from "../Month-Date-Box-Component/Month-Date-Box-Component";
@@ -15,21 +14,25 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-function WeatherDashboard(props) {
+function WeatherDashboard({props}) {
   const classes = useStyles();
   const [forecastDuration, setForecastDuration] = useState("Today");
   const [dailyData, setDailyData] = useState([]);
   const [weeklyData, setWeeklyData] = useState([]);
+  const [cityID, setCityID] = useState(6453366);
 
+const handleChange = (event) => {
+    setCityID(event.target.value);
+  }; 
+ 
   const handleDurationChange = duration => {
     setForecastDuration(duration);
   };
 
-  useEffect(() => {
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${6453366}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)  
+useEffect(() => {
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityID}&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
    .then(response => response.json())
       .then(response => {
-      
         const firstFive = response.list.slice(0, 5).map(listItem => {
           return {
             title: listItem.dt_txt,
@@ -49,9 +52,8 @@ function WeatherDashboard(props) {
           };
         });
         setWeeklyData(firstFiveDays);
-        console.log(firstFiveDays);
       });
-  }, []);
+  }, [cityID]);
 
   const day = new Date();
   const dayOptions = {day: "numeric" }
@@ -63,18 +65,18 @@ function WeatherDashboard(props) {
     <>
       <Box className={classes.topBar}>
         <MonthDateBoxComponent day={day.toLocaleDateString(undefined,dayOptions)} month={month.toLocaleDateString(undefined,monthOptions)} />
-        <SearchComponent searchCity={""} />
+         <SearchComponent value={cityID} handleChange={handleChange} /> 
       </Box>
 
       {dailyData.slice(0,1).map(currentTempAndWeatherDescription => (
       <CurrentCityConditionsDisplayComponent
-       key={currentTempAndWeatherDescription.mainTemp}
+        key={currentTempAndWeatherDescription.mainTemp}
         mainTemp={currentTempAndWeatherDescription.mainTemp}
         weatherDescription={currentTempAndWeatherDescription.weatherDescription}
       />
        ))}
 
-      <ForecastTabsComponent
+      <ForecastTabsComponentadd
         forecastDuration={forecastDuration}
         handleDurationChange={handleDurationChange}
       />
@@ -84,5 +86,4 @@ function WeatherDashboard(props) {
     </>
   );
 }
-
 export default WeatherDashboard;

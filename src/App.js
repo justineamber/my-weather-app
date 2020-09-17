@@ -27,7 +27,7 @@ function App() {
     <div className="App">
       <div className={classes.root}>
         <Paper className={classes.paper} square={true}>
-          <WeatherDasboard />
+          <WeatherDasboard  />
         </Paper>
       </div>
     </div>

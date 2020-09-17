@@ -21,7 +21,7 @@ function WeatherDashboard({props}) {
   const [weeklyData, setWeeklyData] = useState([]);
   const [cityID, setCityID] = useState(6453366);
 
-const handleChange = (event) => {
+  const handleChange = (event) => {
     setCityID(event.target.value);
   }; 
  
@@ -55,6 +55,10 @@ useEffect(() => {
       });
   }, [cityID]);
 
+  //1) write code that searches for keywords on Dribbble and when a match is found returns an image.
+
+  //2)iterate through weather description strings and use includes() method to check for matches in a new keyword array of strings. Also use split method to split up strings into array of unique strings. 
+
   const day = new Date();
   const dayOptions = {day: "numeric" }
 
@@ -76,7 +80,7 @@ useEffect(() => {
       />
        ))}
 
-      <ForecastTabsComponentadd
+      <ForecastTabsComponent
         forecastDuration={forecastDuration}
         handleDurationChange={handleDurationChange}
       />
@@ -86,4 +90,5 @@ useEffect(() => {
     </>
   );
 }
+
 export default WeatherDashboard;

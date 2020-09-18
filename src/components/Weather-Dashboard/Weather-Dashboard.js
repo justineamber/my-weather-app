@@ -21,13 +21,11 @@ function WeatherDashboard({props}) {
   const [weeklyData, setWeeklyData] = useState([]);
   const [cityName, setCityName] = useState("Oslo");
 
-
 const handleChange = (event) => {
    setCityName(event.target.value);
   }; 
 
 const handleSubmit = (event) => {
-  console.log(cityName)
   event.preventDefault();
 }
 
@@ -49,8 +47,6 @@ useEffect(() => {
           };
         });
         setDailyData(firstFive);
-        console.log("response:", response)
-        console.log("response list", response.list)
 
         const firstFiveDays = response.list.filter(listItem => listItem.dt_txt.includes("18:00:00")).map(listItem => {
           return {

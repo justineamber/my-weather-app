@@ -1,58 +1,74 @@
 import React from "react";
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Select from '@material-ui/core/Select';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
 import {
   Box,
   makeStyles,
   fade,
-  MenuItem
 } from "@material-ui/core";
 
 
 const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
   search: {
     "& > *": {
-      margin: theme.spacing(1)
+      margin: theme.spacing(0)
     },
     position: "absolute",
     left: "5.625rem",
-    bottom: "1rem",
+    bottom: "1.375rem",
     backgroundColor: fade(theme.palette.common.white, 1.0)
   }, 
-  selectEmpty: {
-    marginTop: theme.spacing(2),
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
   },
 }));
 
 function SearchComponent(props) {
   const classes = useStyles();
-  const { cityID, handleChange } = props;
+  const { cityName, handleChange, handleSubmit} = props;
  
   return (
     <Box className={classes.search}>
-      <FormControl className={classes.formControl}>
-        <Select
-          value={cityID}
-          onChange={handleChange}
-          displayEmpty
-          className={classes.selectEmpty}
-          inputProps={{ 'aria-label': 'Without label' }}
-        >
-          <MenuItem value="" disabled>
-           Select city
-          </MenuItem>
-          <MenuItem value={3369157}>Cape Town</MenuItem>
-          <MenuItem value={5128581}>New York</MenuItem>
-          <MenuItem value={6453366}>Oslo</MenuItem>
-          <MenuItem value={6619279}>Sydney</MenuItem>
-        </Select>
-        <FormHelperText>Select city</FormHelperText>
-      </FormControl>
+        <form onSubmit={handleSubmit}>
+        <IconButton type="submit" className={classes.searchIcon}>
+              <SearchIcon />
+        </IconButton>  
+
+        <InputBase
+              type="text"
+              value={cityName}
+              onChange={handleChange}
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </form>
     </Box>
   );
 }

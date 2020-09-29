@@ -4,11 +4,10 @@ import WeatherListComponent from "../Weather-List-Component/Weather-List-Compone
 import MonthDateBoxComponent from "../Month-Date-Box-Component/Month-Date-Box-Component";
 import CurrentCityConditionsDisplayComponent from "../Current-City-Conditions-Display-Component/Current-City-Conditions-Display-Component";
 import ForecastTabsComponent from "../Forecast-Tabs-Component/Forecast-Tabs-Component";
+import SearchComponent from "../Search-Component/Search-Component";
 import { Box } from "@material-ui/core";
 import Image from "../../../src/static/overcastCloudy.jpg";
 import Unsplash, { toJson }  from 'unsplash-js';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles(() => ({
   weatherDashboardWrapper: {
@@ -23,19 +22,13 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     position: "relative"
   }, 
-  autoCompleteWrapper: {
-    marginTop: "1rem",
-    marginLeft: "1rem"
-  }
 }));
-
-const options = ["Oslo", "Perth", "Cape Town", "Graaff-Reinet", "London", "Portofino", "Sydney", "Bergen", "New York", "Paris", "Dublin"];
 
 function WeatherDashboard({props}) {
   const [forecastDuration, setForecastDuration] = useState("Today");
   const [dailyData, setDailyData] = useState([]);
   const [weeklyData, setWeeklyData] = useState([]);
-  const [cityName, setCityName] = useState(options[0]);
+  const [cityName, setCityName] = useState(topInnovativeCityOptions[53]);
   const [inputValue, setInputValue] = useState("");
   const [image, setImage] = useState({
     alt: 'A cloudy rainforest.',
@@ -61,7 +54,6 @@ function WeatherDashboard({props}) {
               weatherDescription: listItem.weather[0].description
             };
           });
-          console.log(firstFive)
           setDailyData(firstFive);
 
           const firstFiveDays = response.list.filter(listItem => listItem.dt_txt.includes("18:00:00")).map(listItem => {
@@ -105,8 +97,7 @@ function WeatherDashboard({props}) {
     <Box className={classes.weatherDashboardWrapper}>
       <Box className={classes.topBar}>
         <MonthDateBoxComponent day={day.toLocaleDateString(undefined,dayOptions)} month={month.toLocaleDateString(undefined,monthOptions)} />
-        <Box className={classes.autoCompleteWrapper}>
-      <Autocomplete
+      <SearchComponent
         value={cityName}
         onChange={(event, newValue) => {
           setCityName(newValue);
@@ -115,12 +106,8 @@ function WeatherDashboard({props}) {
         onInputChange={(event, newInputValue) => {
           setInputValue(newInputValue);
         }}
-        id="Search city"
-        options={options}
-        style={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Search city" variant="outlined" />}
+        topInnovativeCityOptions={topInnovativeCityOptions}
       />
-      </Box>
       </Box>
 
       {dailyData.slice(0,1).map(currentTempAndWeatherDescription => (
@@ -144,3 +131,6 @@ function WeatherDashboard({props}) {
   }
 
 export default WeatherDashboard;
+
+const topInnovativeCityOptions = ["Abu Dhabi","Amsterdam", "Athens", "Atlanta", "Bangkok", "Barcelona", "Beijing", "Berlin", "Boston", "Brisbane", "Brussels",  "Budapest", "Buenos Aires",  "Busan", "Calgary", "Charlotte", "Chicago", "Cologne", "Copenhagen",  "Denver", "Detroit",  "Dubai", "Dublin", "Düsseldorf", "Edinburgh",  "Fort Lauderdale", "Frankfurt", "Guangzhou", "Hamburg", "Helsinki", "Hong Kong", "Honolulu", "Houston", "Istanbul", "Kuala Lumpur",  "Kyoto", "Lisbon", "London", "	Los Angeles", "Lyon", "Madrid", "Manchester", "Melbourne", "Mexico City", "Miami", "Milan", "Montréal", "Moscow", "Mumbai", "Munich", "Nashville", "New York", "Osaka", "Oslo",  "Paris",  "Portland", "Prague", "Providence", "Québec", "Rome", "Rotterdam", "Seattle",  "Seoul", "Shanghai", "Shenzhen", "Singapore", "St Louis", "Stockholm", "Sydney", "São Paulo", "Taipei", "Tel Aviv", "The Hague", "Tokyo", "Toronto", "Vancouver", "Vienna", "Washington DC", "Zürich" ];
+

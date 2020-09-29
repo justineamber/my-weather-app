@@ -8,6 +8,9 @@ const useStyles = makeStyles(() => ({
 autoCompleteWrapper: {
     marginTop: "1rem",
     marginLeft: "1rem"
+  }, 
+  backgroundColor: {
+    backgroundColor: "white", 
   }
 }));
 
@@ -26,8 +29,8 @@ const {cityName, onChange, inputValue, onInputChange, topInnovativeCityOptions }
         onInputChange={onInputChange}
         id="Search city"
         options={topInnovativeCityOptions}
-        style={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Search city" variant="outlined" />}
+        style={{ width: 200 }}
+        renderInput={(params) => <TextField {...params} label="Search city" variant="filled" className={classes.backgroundColor}/>}
       />
       </Box>
     </>

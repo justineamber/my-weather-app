@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 700,
     textTransform: "none",
     minWidth: 62,
-    //fontWeight: theme.typography.fontWeightRegular,
     marginRight: theme.spacing(1)
   }
 }));
